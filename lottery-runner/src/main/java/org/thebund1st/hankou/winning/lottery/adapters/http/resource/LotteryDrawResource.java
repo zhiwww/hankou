@@ -10,6 +10,8 @@ public class LotteryDrawResource {
 
     private boolean won;
 
+    private LotteryWinning reward;
+
     private LotteryDrawResource(boolean won) {
         this.won = won;
     }
@@ -19,6 +21,8 @@ public class LotteryDrawResource {
     }
 
     public static LotteryDrawResource from(LotteryWinning winning) {
-        return new LotteryDrawResource(true);
+        LotteryDrawResource resource = new LotteryDrawResource(true);
+        resource.setReward(winning);
+        return resource;
     }
 }

@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.thebund1st.hankou.winning.lottery.adapters.http.resource.LotteryDrawResource;
 import org.thebund1st.hankou.winning.lottery.application.LotteryDrawCommandHandler;
 import org.thebund1st.hankou.winning.lottery.application.command.DrawLotteryCommand;
-import org.thebund1st.hankou.winning.lottery.domain.LotteryWinning;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -22,8 +20,7 @@ public class LotteryDrawRestController {
 
     @PostMapping("/winning/lottery/draw")
     public LotteryDrawResource handle(@Valid @RequestBody DrawLotteryCommand command) {
-        Optional<LotteryWinning> winningOptional = lotteryDrawCommandHandler.handle(command);
-        return winningOptional
+        return lotteryDrawCommandHandler.handle(command)
                 .map(LotteryDrawResource::from)
                 .orElse(LotteryDrawResource.noLuck());
     }

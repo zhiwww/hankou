@@ -14,13 +14,17 @@ Contract.make {
         }
         body([
                 campaign: value(consumer(regex('.*')), producer('1')),
-                customer: value(consumer(regex('.*')), producer('aba'))
+                customer: value(consumer(regex('.*')), producer('lucky guy'))
         ])
     }
     response {
         status 200
         body([
-                won: true
+                won   : true,
+                reward: [
+                        item    : 'a reward item identity',
+                        quantity: 1
+                ]
         ])
     }
 }

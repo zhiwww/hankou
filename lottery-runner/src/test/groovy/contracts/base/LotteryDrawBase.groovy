@@ -13,13 +13,19 @@ abstract class LotteryDrawBase extends AbstractWebMvcTest {
     }
 
     private void won() {
-        def command = aDrawLotteryCommand().withCustomer("aba").withCampaign("1").build()
-        def won = aLotteryWinningOptional().won().build()
+        def command = aDrawLotteryCommand()
+                .withCustomer("lucky guy").withCampaign("1").build()
+        def won = aLotteryWinningOptional()
+                .won()
+                .withItem("a reward item identity")
+                .withQuantity(1).build()
         lotteryDrawCommandHandler.handle(command) >> won
     }
 
     private void noLuck() {
-        def command = aDrawLotteryCommand().withCustomer("abc").withCampaign("1").build()
+        def command = aDrawLotteryCommand()
+                .withCustomer("abc")
+                .withCampaign("1").build()
         def noLuck = aLotteryWinningOptional().noLuck().build()
         lotteryDrawCommandHandler.handle(command) >> noLuck
     }

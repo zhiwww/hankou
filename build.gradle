@@ -68,5 +68,11 @@ configure(subprojects.findAll { it.name != 'gatling' }) {
     }
 }
 
+task build() {
+
+}
+apply from: "${rootProject.projectDir}/gradle/git-hooks.gradle"
+
+
 
 
