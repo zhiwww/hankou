@@ -1,0 +1,11 @@
+version: '3'
+services:
+  spring-contract-stub-runner:
+    image: springcloud/spring-cloud-contract-stub-runner:2.1.0.RELEASE
+    volumes:
+      - ~/.m2:/root/.m2
+    ports:
+      - "9999:9999"
+    environment:
+      - STUBRUNNER_IDS=com.github.hippoom:lottery-runner:+:9999
+      - STUBRUNNER_STUBS_MODE=LOCAL

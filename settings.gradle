@@ -1,0 +1,3 @@
+rootProject.name = 'hankou'
+
+include ':lottery-runner'
