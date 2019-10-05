@@ -2,7 +2,7 @@ package org.thebund1st.hankou.winning.lottery.domain
 
 class LotteryWinningFixture {
     private boolean won = false
-    private LotteryWinning target = new LotteryWinning()
+    private Won target = new Won()
 
     def won() {
         this.won = true
