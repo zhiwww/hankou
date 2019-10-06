@@ -12,9 +12,11 @@ import static java.util.stream.Collectors.toList;
 public class LotteryWinningWindow {
 
     public List<WinningWindow> assemble(List<LotteryPosition> positions, int bound) {
+        final List<LotteryPosition> availablePositions = positions.stream()
+                .filter(LotteryPosition::isAvailable).collect(toList());
         List<WinningWindow> result = new ArrayList<>();
-        for (int i = 0; i < positions.size(); i++) {
-            LotteryPosition current = positions.get(i);
+        for (int i = 0; i < availablePositions.size(); i++) {
+            LotteryPosition current = availablePositions.get(i);
             int diff = BigDecimal.valueOf(current.getChance())
                     .multiply(BigDecimal.valueOf(bound)).intValue();
             int start;
@@ -38,12 +40,12 @@ public class LotteryWinningWindow {
                 .findFirst();//FIXME what if something goes wrong
     }
 
-    public LotteryPosition aThankYou(List<WinningWindow> windows, int totalPositions, String noLuckRewardItem) {
+    public LotteryPosition aThankYou(List<LotteryPosition> positions, int totalPositions, String noLuckRewardItem) {
         IntStream total = IntStream.range(1, totalPositions + 1);
-        List<Integer> positions = windows.stream()
-                .map(w -> w.getLotteryPosition().getPosition()).collect(toList());
+        List<Integer> positionGroup = positions.stream()
+                .map(LotteryPosition::getPosition).collect(toList());
 
-        int[] thankYouGroup = total.filter(item -> !positions.contains(item)).toArray();
+        int[] thankYouGroup = total.filter(item -> !positionGroup.contains(item)).toArray();
         if (thankYouGroup.length == 0) {
             return null;//should never be here
         } else {

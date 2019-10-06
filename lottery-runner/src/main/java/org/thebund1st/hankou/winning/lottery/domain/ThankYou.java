@@ -25,7 +25,7 @@ public class ThankYou implements LotteryDrawer {
         List<WinningWindow> windows = lotteryWinningWindow.assemble(lotteryPositions, bound);
         int draw = lotteryRandom.nextInt(bound);
         return lotteryWinningWindow.draw(windows, draw)
-                .orElse(lotteryWinningWindow.aThankYou(windows, totalPositions, noLuckRewardItem));
+                .orElse(lotteryWinningWindow.aThankYou(lotteryPositions, totalPositions, noLuckRewardItem));
     }
 
 }

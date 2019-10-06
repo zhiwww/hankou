@@ -13,6 +13,19 @@ class LotteryPositionFixture {
         this
     }
 
+    def unavailable() {
+        withAvailable(false)
+    }
+
+    def available() {
+        withAvailable(true)
+    }
+
+    def withAvailable(boolean value) {
+        this.target.setAvailable(value)
+        this
+    }
+
     def withRewardItem(String value) {
         this.target.setRewardItem(value)
         this
@@ -26,6 +39,7 @@ class LotteryPositionFixture {
         new LotteryPositionFixture()
                 .withPosition(1)
                 .withChance(0.01)
+                .available()
                 .withRewardItem("1")
     }
 }

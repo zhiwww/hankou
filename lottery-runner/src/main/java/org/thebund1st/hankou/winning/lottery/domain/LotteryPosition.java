@@ -15,6 +15,8 @@ public class LotteryPosition {
      */
     private double chance;
 
+    private boolean available;
+
     private String rewardItem;
 
     public LotteryPosition(int position, String rewardItem) {
