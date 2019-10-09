@@ -4,13 +4,13 @@ import java.math.BigDecimal;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.IntStream;
 
 import static java.util.stream.Collectors.toList;
 
-public class LotteryWinningWindow {
+public class ChancesToWin implements WinningWindowAssembler {
 
+    @Override
     public List<WinningWindow> assemble(List<LotteryPosition> positions, int bound) {
         final List<LotteryPosition> availablePositions = positions.stream()
                 .filter(LotteryPosition::isAvailable).collect(toList());
@@ -31,13 +31,6 @@ public class LotteryWinningWindow {
             result.add(new WinningWindow(start, endOfPreviousElement + diff, current));
         }
         return result;
-    }
-
-    public Optional<LotteryPosition> draw(List<WinningWindow> windows, int draw) {
-        return windows.stream()
-                .filter(w -> w.contains(draw))
-                .map(WinningWindow::getLotteryPosition)
-                .findFirst();//FIXME what if something goes wrong
     }
 
     public LotteryPosition aThankYou(List<LotteryPosition> positions, int totalPositions, String noLuckRewardItem) {

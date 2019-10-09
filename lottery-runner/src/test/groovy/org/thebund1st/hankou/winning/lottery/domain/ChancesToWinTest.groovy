@@ -4,10 +4,9 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 import static org.thebund1st.hankou.winning.lottery.domain.LotteryPositionFixture.aLotteryPosition
-import static org.thebund1st.hankou.winning.lottery.domain.WinningWindowFixture.aWinningWindow
 
-class LotteryWinningWindowTest extends Specification {
-    private LotteryWinningWindow subject = new LotteryWinningWindow()
+class ChancesToWinTest extends Specification {
+    private ChancesToWin subject = new ChancesToWin()
 
     @Unroll("it should return #windows with #positions")
     def "it should return winning window"(def positions, int bound, def windows) {
@@ -27,22 +26,6 @@ class LotteryWinningWindowTest extends Specification {
         []                                  | 0     | []
         [[1, 0.15, false], [2, 0.2, false]] | 100   | []
         [[1, 0.15, true], [2, 0.2, false]]  | 100   | [[1, 1, 15]]
-    }
-
-    @Unroll("it should return #windows with #number and #position")
-    def "it should return window matched"(def windows, int number, def position) {
-        expect:
-        def windowGroup = windows.collect { it ->
-            aWinningWindow().withStart(it.get(1)).withEnd(it.get(2))
-                    .with(aLotteryPosition().withPosition(it.get(0)).build()).build()
-        }
-        assert subject.draw(windowGroup, number).map { it.position }.orElse(0) == position
-
-        where:
-        windows                   | number | position
-        [[1, 1, 15], [2, 16, 35]] | 15     | 1
-        [[1, 1, 15], [2, 16, 35]] | 16     | 2
-        [[1, 1, 15], [2, 16, 35]] | 36     | 0
     }
 
     @Unroll("it should return random thank you thankYouPositions when no luck")
